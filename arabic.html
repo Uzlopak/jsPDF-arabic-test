@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<style type="text/css">
+		body p.amiri {
+			font-family: "Amiri";
+		}
+
+		body p.arial {
+			font-family: "arial";
+		}
+	</style>
+</head>
+
+<body>
+	<p class="amiri">إذا لم تستح فاصنع ما شئت</p>
+	<p class="amiri">
+		&#x625;&#x630;&#x627;&#x20;&#x644;&#x645;&#x20;&#x62a;&#x633;&#x62a;&#x62d;&#x20;&#x641;&#x627;&#x635;&#x646;&#x639;&#x20;&#x645;&#x627;&#x20;&#x634;&#x626;&#x62a;
+	</p>
+
+	<p class="arial">إذا لم تستح فاصنع ما شئت</p>
+	<p class="arial">
+		&#x625;&#x630;&#x627;&#x20;&#x644;&#x645;&#x20;&#x62a;&#x633;&#x62a;&#x62d;&#x20;&#x641;&#x627;&#x635;&#x646;&#x639;&#x20;&#x645;&#x627;&#x20;&#x634;&#x626;&#x62a;
+	</p>
+
+
+	<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+	<script type="text/javascript"
+		src="https://rawcdn.githack.com/MrRio/jsPDF/cbc85b4bb66d5c1a2d50d199e8bf33836f2f12d7/dist/polyfills.umd.js"></script>
+	<script type="text/javascript"
+		src="https://rawcdn.githack.com/MrRio/jsPDF/cbc85b4bb66d5c1a2d50d199e8bf33836f2f12d7/dist/jspdf.umd.min.js"></script>
+
+
+	<script>
+		var jsPDF = window.jspdf.jsPDF;
+		var pdf = new jsPDF('p', 'pt', 'letter');
+		var width = 600;
+		document.body.style.width = width + "px";
+
+		const AmiriRegular = pdf.loadFile("https://rawcdn.githack.com/MrRio/jsPDF/cbc85b4bb66d5c1a2d50d199e8bf33836f2f12d7/test/reference/Amiri-Regular.ttf", true);
+		pdf.addFileToVFS("Amiri-Regular.ttf", AmiriRegular);
+
+		pdf.addFont("Amiri-Regular.ttf", "Amiri", "normal");
+		pdf.setLanguage("ar-KW")
+		pdf.html(document.body, {
+			callback: function (pdf) {
+				var iframe = document.createElement('iframe');
+				iframe.setAttribute('style', 'position:absolute;top:0;right:0;height:100%; width:600px');
+				document.body.appendChild(iframe);
+				iframe.src = pdf.output('datauristring');
+			}
+		});
+	</script>
+</body>
+
+</html>
